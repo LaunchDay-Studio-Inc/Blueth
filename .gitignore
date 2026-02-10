@@ -1,5 +1,7 @@
 .godot/
 *.import
 exports/
+build/
+dist/
 .agent/
 .DS_Store
