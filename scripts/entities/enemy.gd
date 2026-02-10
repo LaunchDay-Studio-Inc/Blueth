@@ -18,6 +18,8 @@ var slow_multiplier = 1.0
 var slow_timer = 0.0
 var flash_timer = 0.0
 var is_elite = false
+var body_color = Color(0.84, 0.35, 0.30)
+var eye_color = Color(0.19, 0.08, 0.06)
 
 var collision_shape: CollisionShape2D
 
@@ -48,6 +50,8 @@ func activate(spawn_position: Vector2, target_ref, cfg: Dictionary) -> void:
 	xp_drop = float(cfg.get("xp", 5.0))
 	radius = float(cfg.get("radius", 14.0))
 	is_elite = bool(cfg.get("elite", false))
+	body_color = cfg.get("body_color", body_color)
+	eye_color = cfg.get("eye_color", eye_color)
 
 	(collision_shape.shape as CircleShape2D).radius = radius
 	scale = Vector2.ONE * float(cfg.get("scale", 1.0))
@@ -120,14 +124,20 @@ func apply_slow(multiplier: float, duration: float) -> void:
 
 
 func _draw() -> void:
-	var body = Color(0.84, 0.35, 0.30)
-	if is_elite:
-		body = Color(0.91, 0.22, 0.18)
+	var body = body_color
 	if slow_timer > 0.0:
 		body = body.lerp(Color(0.45, 0.75, 0.96), 0.45)
 	if flash_timer > 0.0:
 		body = Color(1.0, 0.93, 0.86)
 
+	var shadow = Color(0.0, 0.0, 0.0, 0.22)
+	draw_circle(Vector2(1.6, 3.2), radius * 1.04, shadow)
+	draw_circle(Vector2.ZERO, radius * 1.08, Color(body.r, body.g, body.b, 0.18))
 	draw_circle(Vector2.ZERO, radius, body)
-	draw_circle(Vector2(-radius * 0.33, -radius * 0.12), radius * 0.18, Color(0.19, 0.08, 0.06))
-	draw_circle(Vector2(radius * 0.33, -radius * 0.12), radius * 0.18, Color(0.19, 0.08, 0.06))
+	draw_circle(Vector2(-radius * 0.32, -radius * 0.34), radius * 0.28, Color(1.0, 1.0, 1.0, 0.18))
+	draw_circle(Vector2(-radius * 0.33, -radius * 0.10), radius * 0.19, eye_color)
+	draw_circle(Vector2(radius * 0.33, -radius * 0.10), radius * 0.19, eye_color)
+	draw_circle(Vector2(-radius * 0.35, -radius * 0.15), radius * 0.06, Color(0.96, 0.98, 1.0))
+	draw_circle(Vector2(radius * 0.30, -radius * 0.15), radius * 0.06, Color(0.96, 0.98, 1.0))
+	if is_elite:
+		draw_arc(Vector2.ZERO, radius + 3.8, -PI * 0.88, PI * 0.88, 26, Color(1.0, 0.80, 0.62, 0.78), 2.0)

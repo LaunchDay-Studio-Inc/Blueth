@@ -34,6 +34,10 @@ func _physics_process(delta: float) -> void:
 		deactivate()
 		return
 
+	rotation += delta * 2.8
+	var pulse = 1.0 + 0.08 * sin(Time.get_ticks_msec() * 0.006)
+	scale = Vector2.ONE * pulse
+
 	var to_player = player.global_position - global_position
 	var distance_sq = to_player.length_squared()
 	var magnet_radius = player.pickup_magnet_radius
@@ -53,6 +57,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _draw() -> void:
+	draw_circle(Vector2.ZERO, 7.5, Color(0.28, 0.97, 0.88, 0.16))
+	draw_circle(Vector2.ZERO, 5.9, Color(0.32, 0.98, 0.89, 0.22))
 	var shape = PackedVector2Array([
 		Vector2(0, -5.2),
 		Vector2(5.2, 0),
@@ -60,9 +66,10 @@ func _draw() -> void:
 		Vector2(-5.2, 0)
 	])
 	var colors = PackedColorArray([
-		Color(0.29, 0.98, 0.88),
-		Color(0.29, 0.98, 0.88),
-		Color(0.20, 0.76, 0.70),
-		Color(0.20, 0.76, 0.70)
+		Color(0.39, 1.0, 0.92),
+		Color(0.39, 1.0, 0.92),
+		Color(0.22, 0.80, 0.72),
+		Color(0.22, 0.80, 0.72)
 	])
 	draw_polygon(shape, colors)
+	draw_circle(Vector2(-1.2, -1.8), 1.1, Color(0.97, 1.0, 0.98, 0.86))

@@ -152,18 +152,40 @@ func _draw() -> void:
 	if invuln_timer > 0.0:
 		body_color = body_color.lightened(0.28)
 
+	var glow = body_color
+	glow.a = 0.22
+	draw_circle(Vector2.ZERO, 26.0, glow)
+	draw_circle(Vector2.ZERO, 22.0, Color(glow.r, glow.g, glow.b, 0.12))
+
 	draw_circle(Vector2.ZERO, 18.0, body_color)
-	draw_circle(Vector2(-6.2, -3.8), 3.6, Color(0.09, 0.16, 0.24))
-	draw_circle(Vector2(6.2, -3.8), 3.6, Color(0.09, 0.16, 0.24))
-	draw_arc(Vector2.ZERO, 10.0, 0.2, PI - 0.2, 20, Color(0.08, 0.14, 0.2), 2.4)
+	draw_circle(Vector2(-5.2, -7.0), 5.6, Color(1.0, 1.0, 1.0, 0.22))
+	draw_circle(Vector2(-6.2, -3.8), 3.7, Color(0.08, 0.14, 0.2))
+	draw_circle(Vector2(6.2, -3.8), 3.7, Color(0.08, 0.14, 0.2))
+	draw_circle(Vector2(-5.3, -4.3), 1.1, Color(0.96, 0.99, 1.0))
+	draw_circle(Vector2(5.1, -4.3), 1.1, Color(0.96, 0.99, 1.0))
+	draw_arc(Vector2.ZERO, 10.2, 0.2, PI - 0.2, 22, Color(0.07, 0.12, 0.18), 2.5)
 
 	var charge_ratio = clamp(distance_since_surge / surge_distance, 0.0, 1.0)
-	draw_arc(Vector2.ZERO, 24.5, -PI * 0.5, -PI * 0.5 + (TAU * charge_ratio), 42, Color(0.48, 0.92, 1.0), 3.2)
+	var ring_outer = Color(0.48, 0.92, 1.0, 0.33)
+	draw_arc(Vector2.ZERO, 24.5, 0.0, TAU, 48, ring_outer, 1.2)
+	draw_arc(
+		Vector2.ZERO,
+		24.5,
+		-PI * 0.5,
+		-PI * 0.5 + (TAU * charge_ratio),
+		42,
+		Color(0.60, 0.96, 1.0, 0.96),
+		3.3
+	)
+	if charge_ratio > 0.98:
+		draw_arc(Vector2.ZERO, 28.0, 0.0, TAU, 56, Color(0.76, 0.99, 1.0, 0.55), 2.0)
 
 	if weapon_type == "beam":
-		draw_rect(Rect2(Vector2(-4.0, -22.0), Vector2(8.0, 8.0)), Color(0.74, 0.95, 1.0), true)
+		draw_rect(Rect2(Vector2(-5.0, -23.0), Vector2(10.0, 10.0)), Color(0.80, 0.97, 1.0), true)
+		draw_rect(Rect2(Vector2(-1.4, -20.0), Vector2(2.8, 8.0)), Color(0.47, 0.84, 1.0), true)
 	elif weapon_type == "boomerang":
-		draw_arc(Vector2.ZERO, 22.0, -1.15, -0.35, 10, Color(0.33, 0.96, 0.86), 3.0)
-		draw_arc(Vector2.ZERO, 22.0, -2.8, -2.0, 10, Color(0.33, 0.96, 0.86), 3.0)
+		draw_arc(Vector2.ZERO, 22.0, -1.15, -0.35, 10, Color(0.42, 0.98, 0.90), 3.1)
+		draw_arc(Vector2.ZERO, 22.0, -2.8, -2.0, 10, Color(0.32, 0.90, 0.80), 3.1)
 	else:
-		draw_rect(Rect2(Vector2(-10.0, -21.0), Vector2(20.0, 6.0)), Color(0.89, 0.95, 1.0), true)
+		draw_rect(Rect2(Vector2(-10.0, -21.0), Vector2(20.0, 6.0)), Color(0.94, 0.98, 1.0), true)
+		draw_rect(Rect2(Vector2(-4.0, -19.0), Vector2(8.0, 2.8)), Color(0.44, 0.82, 0.99), true)

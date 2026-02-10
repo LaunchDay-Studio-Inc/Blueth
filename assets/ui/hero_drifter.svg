@@ -1,16 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="320" height="220" viewBox="0 0 320 220">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0c2f2d"/>
-      <stop offset="100%" stop-color="#11615b"/>
+      <stop offset="0%" stop-color="#0a2a2a"/>
+      <stop offset="100%" stop-color="#176e63"/>
     </linearGradient>
+    <radialGradient id="halo" cx="50%" cy="48%" r="44%">
+      <stop offset="0%" stop-color="#8ff5e2" stop-opacity="0.60"/>
+      <stop offset="100%" stop-color="#8ff5e2" stop-opacity="0"/>
+    </radialGradient>
   </defs>
   <rect x="8" y="8" width="304" height="204" rx="28" fill="url(#bg)"/>
-  <circle cx="160" cy="116" r="58" fill="#56e2ca"/>
+  <circle cx="160" cy="116" r="70" fill="url(#halo)"/>
+  <circle cx="160" cy="116" r="58" fill="#57e3cb"/>
+  <circle cx="144" cy="97" r="15" fill="#ffffff" fill-opacity="0.22"/>
   <circle cx="140" cy="108" r="8" fill="#08211e"/>
   <circle cx="180" cy="108" r="8" fill="#08211e"/>
+  <circle cx="139" cy="106" r="2" fill="#f4fffb"/>
+  <circle cx="179" cy="106" r="2" fill="#f4fffb"/>
   <path d="M134 139c13 10 39 10 52 0" fill="none" stroke="#08211e" stroke-width="7" stroke-linecap="round"/>
-  <path d="M112 62c14-15 31-18 48-13" fill="none" stroke="#9ff5e6" stroke-width="8" stroke-linecap="round"/>
-  <path d="M160 49c17-4 35 1 48 16" fill="none" stroke="#8df2e0" stroke-width="8" stroke-linecap="round"/>
-  <text x="20" y="36" font-family="Verdana, sans-serif" font-size="20" fill="#97f4e4">DRIFTER</text>
+  <path d="M110 60c16-18 35-22 55-16" fill="none" stroke="#b8fff2" stroke-width="8" stroke-linecap="round"/>
+  <path d="M155 44c20-4 40 3 56 20" fill="none" stroke="#99f9e7" stroke-width="8" stroke-linecap="round"/>
+  <path d="M106 72c12-9 23-12 34-10" fill="none" stroke="#74dcca" stroke-width="4" stroke-linecap="round"/>
+  <text x="20" y="36" font-family="Verdana, sans-serif" font-size="20" fill="#9ff8e8">DRIFTER</text>
 </svg>

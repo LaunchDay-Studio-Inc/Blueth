@@ -155,9 +155,12 @@ func _on_area_entered(area: Area2D) -> void:
 
 func _draw() -> void:
 	if projectile_mode == "boomerang":
-		draw_arc(Vector2.ZERO, radius + 2.0, -2.5, -0.5, 12, Color(0.38, 0.96, 0.88), 2.8)
-		draw_arc(Vector2.ZERO, radius + 2.0, 0.6, 2.6, 12, Color(0.20, 0.76, 0.70), 2.8)
+		draw_circle(Vector2.ZERO, radius + 2.6, Color(0.36, 0.92, 0.84, 0.14))
+		draw_arc(Vector2.ZERO, radius + 2.0, -2.5, -0.5, 12, Color(0.38, 0.96, 0.88), 3.0)
+		draw_arc(Vector2.ZERO, radius + 2.0, 0.6, 2.6, 12, Color(0.20, 0.76, 0.70), 3.0)
 		return
 
-	draw_circle(Vector2.ZERO, radius, Color(0.70, 0.95, 1.0))
-	draw_circle(Vector2.ZERO, radius * 0.44, Color(0.18, 0.46, 0.60))
+	draw_circle(Vector2.ZERO, radius * 1.9, Color(0.70, 0.95, 1.0, 0.16))
+	draw_circle(Vector2.ZERO, radius, Color(0.74, 0.97, 1.0))
+	draw_circle(Vector2.ZERO, radius * 0.50, Color(0.22, 0.54, 0.72))
+	draw_circle(Vector2(-radius * 0.24, -radius * 0.30), radius * 0.20, Color(0.98, 1.0, 1.0, 0.75))

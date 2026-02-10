@@ -1,15 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="320" height="220" viewBox="0 0 320 220">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0b2432"/>
-      <stop offset="100%" stop-color="#0f3c52"/>
+      <stop offset="0%" stop-color="#061c2b"/>
+      <stop offset="100%" stop-color="#0f4f69"/>
     </linearGradient>
+    <radialGradient id="halo" cx="50%" cy="48%" r="42%">
+      <stop offset="0%" stop-color="#8be8ff" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#8be8ff" stop-opacity="0"/>
+    </radialGradient>
   </defs>
   <rect x="8" y="8" width="304" height="204" rx="28" fill="url(#bg)"/>
-  <circle cx="160" cy="116" r="58" fill="#54c3e7"/>
+  <circle cx="160" cy="116" r="68" fill="url(#halo)"/>
+  <circle cx="160" cy="116" r="58" fill="#52c5ea"/>
+  <circle cx="145" cy="97" r="16" fill="#ffffff" fill-opacity="0.24"/>
   <circle cx="140" cy="108" r="8" fill="#0b1a25"/>
   <circle cx="180" cy="108" r="8" fill="#0b1a25"/>
+  <circle cx="139" cy="106" r="2" fill="#f3fbff"/>
+  <circle cx="179" cy="106" r="2" fill="#f3fbff"/>
   <path d="M132 138c14 12 42 12 56 0" fill="none" stroke="#0b1a25" stroke-width="7" stroke-linecap="round"/>
-  <rect x="118" y="52" width="84" height="18" rx="7" fill="#ecf8ff"/>
-  <text x="20" y="36" font-family="Verdana, sans-serif" font-size="20" fill="#8ddff6">WARDEN</text>
+  <rect x="116" y="50" width="88" height="20" rx="8" fill="#ecf8ff"/>
+  <rect x="136" y="53" width="48" height="6" rx="3" fill="#7bcdf0"/>
+  <g opacity="0.28" stroke="#a5e9ff" fill="none" stroke-width="2">
+    <path d="M28 180 L110 140"/>
+    <path d="M208 146 L292 178"/>
+  </g>
+  <text x="20" y="36" font-family="Verdana, sans-serif" font-size="20" fill="#95e8ff">WARDEN</text>
 </svg>

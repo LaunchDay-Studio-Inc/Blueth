@@ -1,16 +1,29 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="320" height="220" viewBox="0 0 320 220">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#12293a"/>
-      <stop offset="100%" stop-color="#1b4b63"/>
+      <stop offset="0%" stop-color="#12233a"/>
+      <stop offset="100%" stop-color="#355d8a"/>
     </linearGradient>
+    <radialGradient id="halo" cx="50%" cy="48%" r="45%">
+      <stop offset="0%" stop-color="#b8e9ff" stop-opacity="0.62"/>
+      <stop offset="100%" stop-color="#b8e9ff" stop-opacity="0"/>
+    </radialGradient>
   </defs>
   <rect x="8" y="8" width="304" height="204" rx="28" fill="url(#bg)"/>
-  <circle cx="160" cy="116" r="58" fill="#9de5f3"/>
+  <circle cx="160" cy="116" r="72" fill="url(#halo)"/>
+  <circle cx="160" cy="116" r="58" fill="#a6e8f8"/>
+  <circle cx="145" cy="96" r="14" fill="#ffffff" fill-opacity="0.22"/>
   <circle cx="141" cy="108" r="8" fill="#0a1e29"/>
   <circle cx="179" cy="108" r="8" fill="#0a1e29"/>
+  <circle cx="140" cy="106" r="2" fill="#f3fbff"/>
+  <circle cx="178" cy="106" r="2" fill="#f3fbff"/>
   <path d="M136 140c11 8 37 8 48 0" fill="none" stroke="#0a1e29" stroke-width="7" stroke-linecap="round"/>
-  <rect x="152" y="44" width="16" height="38" rx="7" fill="#d8f7ff"/>
-  <path d="M160 38l12 10-12 10-12-10z" fill="#7ad4f1"/>
-  <text x="20" y="36" font-family="Verdana, sans-serif" font-size="20" fill="#9de5f3">CHANNELER</text>
+  <rect x="152" y="40" width="16" height="44" rx="8" fill="#d8f7ff"/>
+  <path d="M160 34l13 11-13 11-13-11z" fill="#8bd8f6"/>
+  <path d="M160 84l10 24h-20z" fill="#7ec5f0"/>
+  <g opacity="0.30" stroke="#d1f4ff" fill="none" stroke-width="2">
+    <path d="M24 158 Q72 142 126 154"/>
+    <path d="M196 154 Q250 142 296 164"/>
+  </g>
+  <text x="20" y="36" font-family="Verdana, sans-serif" font-size="20" fill="#b8e9ff">CHANNELER</text>
 </svg>

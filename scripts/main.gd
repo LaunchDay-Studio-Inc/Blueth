@@ -3,6 +3,7 @@ extends Node
 const GameScript = preload("res://scripts/game/game.gd")
 const DataScript = preload("res://scripts/game/data.gd")
 const MetaProgressionScript = preload("res://scripts/game/meta_progression.gd")
+const MENU_BACKDROP_PATH = "res://assets/ui/menu_backdrop.svg"
 
 var menu_layer: CanvasLayer
 var menu_root: Control
@@ -57,12 +58,22 @@ func _build_menu() -> void:
 	bg.color = Color(0.04, 0.09, 0.12)
 	menu_root.add_child(bg)
 
+	if ResourceLoader.exists(MENU_BACKDROP_PATH):
+		var backdrop = TextureRect.new()
+		backdrop.set_anchors_preset(Control.PRESET_FULL_RECT)
+		backdrop.texture = load(MENU_BACKDROP_PATH)
+		backdrop.stretch_mode = TextureRect.STRETCH_SCALE
+		backdrop.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		backdrop.modulate = Color(1.0, 1.0, 1.0, 0.76)
+		menu_root.add_child(backdrop)
+
 	var center = CenterContainer.new()
 	center.set_anchors_preset(Control.PRESET_FULL_RECT)
 	menu_root.add_child(center)
 
 	var panel = PanelContainer.new()
 	panel.custom_minimum_size = Vector2(980, 760)
+	panel.add_theme_stylebox_override("panel", _make_panel_style(Color(0.03, 0.08, 0.12, 0.93), Color(0.36, 0.72, 0.88), 16))
 	center.add_child(panel)
 
 	var vb = VBoxContainer.new()
@@ -75,12 +86,13 @@ func _build_menu() -> void:
 	title.text = "BLUETH"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 62)
+	title.add_theme_color_override("font_color", Color(0.96, 0.99, 1.0))
 	vb.add_child(title)
 
 	var subtitle = Label.new()
 	subtitle.text = "Arena roguelike - 15 realm levels, 17-minute survival run"
 	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	subtitle.add_theme_color_override("font_color", Color(0.64, 0.84, 0.93))
+	subtitle.add_theme_color_override("font_color", Color(0.63, 0.88, 0.97))
 	subtitle.add_theme_font_size_override("font_size", 20)
 	vb.add_child(subtitle)
 
@@ -91,6 +103,7 @@ func _build_menu() -> void:
 	vb.add_child(select_title)
 
 	var hero_row_panel = PanelContainer.new()
+	hero_row_panel.add_theme_stylebox_override("panel", _make_panel_style(Color(0.06, 0.13, 0.19, 0.86), Color(0.28, 0.63, 0.80), 12))
 	vb.add_child(hero_row_panel)
 
 	var hero_row = HBoxContainer.new()
@@ -103,12 +116,14 @@ func _build_menu() -> void:
 		var button = Button.new()
 		button.custom_minimum_size = Vector2(170, 48)
 		button.text = String(hero["name"]).replace("Blueth ", "")
+		_style_menu_button(button, Color(0.29, 0.74, 0.90), false)
 		button.pressed.connect(_on_hero_selected.bind(i))
 		hero_row.add_child(button)
 		hero_buttons.append(button)
 
 	var hero_panel = PanelContainer.new()
 	hero_panel.custom_minimum_size = Vector2(0.0, 220.0)
+	hero_panel.add_theme_stylebox_override("panel", _make_panel_style(Color(0.05, 0.11, 0.17, 0.88), Color(0.31, 0.66, 0.84), 12))
 	vb.add_child(hero_panel)
 
 	var hero_panel_row = HBoxContainer.new()
@@ -137,7 +152,7 @@ func _build_menu() -> void:
 
 	hero_weapon_label = Label.new()
 	hero_weapon_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	hero_weapon_label.add_theme_color_override("font_color", Color(0.53, 0.82, 0.90))
+	hero_weapon_label.add_theme_color_override("font_color", Color(0.63, 0.90, 0.98))
 	hero_weapon_label.add_theme_font_size_override("font_size", 17)
 	hero_info_vb.add_child(hero_weapon_label)
 
@@ -148,6 +163,7 @@ func _build_menu() -> void:
 	vb.add_child(realm_title)
 
 	var realm_row_panel = PanelContainer.new()
+	realm_row_panel.add_theme_stylebox_override("panel", _make_panel_style(Color(0.06, 0.13, 0.19, 0.86), Color(0.35, 0.70, 0.87), 12))
 	vb.add_child(realm_row_panel)
 
 	var realm_row = HBoxContainer.new()
@@ -160,12 +176,14 @@ func _build_menu() -> void:
 		var realm_button = Button.new()
 		realm_button.custom_minimum_size = Vector2(190, 44)
 		realm_button.text = realm.get("name", "Realm")
+		_style_menu_button(realm_button, Color(0.47, 0.74, 0.97), false)
 		realm_button.pressed.connect(_on_realm_selected.bind(i))
 		realm_row.add_child(realm_button)
 		realm_buttons.append(realm_button)
 
 	var realm_panel = PanelContainer.new()
 	realm_panel.custom_minimum_size = Vector2(0.0, 118.0)
+	realm_panel.add_theme_stylebox_override("panel", _make_panel_style(Color(0.05, 0.11, 0.17, 0.88), Color(0.37, 0.72, 0.89), 12))
 	vb.add_child(realm_panel)
 
 	var realm_vb = VBoxContainer.new()
@@ -184,6 +202,7 @@ func _build_menu() -> void:
 
 	var meta_panel = PanelContainer.new()
 	meta_panel.custom_minimum_size = Vector2(0.0, 270.0)
+	meta_panel.add_theme_stylebox_override("panel", _make_panel_style(Color(0.04, 0.10, 0.15, 0.90), Color(0.44, 0.82, 0.93), 12))
 	vb.add_child(meta_panel)
 
 	var meta_vb = VBoxContainer.new()
@@ -227,6 +246,7 @@ func _build_menu() -> void:
 		node_button.custom_minimum_size = Vector2(0.0, 76.0)
 		node_button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		node_button.clip_text = false
+		_style_menu_button(node_button, Color(0.36, 0.83, 0.92), true)
 		node_button.pressed.connect(_on_meta_upgrade_pressed.bind(node_id))
 		meta_grid.add_child(node_button)
 		meta_buttons_by_id[node_id] = node_button
@@ -237,19 +257,74 @@ func _build_menu() -> void:
 	result_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	result_label.custom_minimum_size = Vector2(600, 92)
 	result_label.add_theme_font_size_override("font_size", 18)
+	result_label.add_theme_color_override("font_color", Color(0.89, 0.98, 1.0))
 	vb.add_child(result_label)
 
 	play_button = Button.new()
 	play_button.text = "Start Run"
 	play_button.custom_minimum_size = Vector2(0, 56)
+	_style_menu_button(play_button, Color(0.30, 0.79, 0.95), false)
 	play_button.pressed.connect(_on_play_pressed)
 	vb.add_child(play_button)
 
 	quit_button = Button.new()
 	quit_button.text = "Quit"
 	quit_button.custom_minimum_size = Vector2(0, 46)
+	_style_menu_button(quit_button, Color(0.75, 0.40, 0.52), false)
 	quit_button.pressed.connect(_on_quit_pressed)
 	vb.add_child(quit_button)
+
+
+func _make_panel_style(bg: Color, border: Color, radius: int) -> StyleBoxFlat:
+	var style = StyleBoxFlat.new()
+	style.bg_color = bg
+	style.border_color = border
+	style.corner_radius_top_left = radius
+	style.corner_radius_top_right = radius
+	style.corner_radius_bottom_left = radius
+	style.corner_radius_bottom_right = radius
+	style.border_width_left = 2
+	style.border_width_top = 2
+	style.border_width_right = 2
+	style.border_width_bottom = 2
+	style.shadow_size = 6
+	style.shadow_color = Color(0.0, 0.0, 0.0, 0.32)
+	return style
+
+
+func _style_menu_button(button: Button, accent: Color, compact: bool) -> void:
+	var normal = StyleBoxFlat.new()
+	normal.bg_color = Color(0.07, 0.13, 0.19, 0.94)
+	normal.border_color = accent
+	normal.corner_radius_top_left = 10
+	normal.corner_radius_top_right = 10
+	normal.corner_radius_bottom_left = 10
+	normal.corner_radius_bottom_right = 10
+	normal.border_width_left = 2
+	normal.border_width_top = 2
+	normal.border_width_right = 2
+	normal.border_width_bottom = 2
+
+	var hover = normal.duplicate()
+	hover.bg_color = Color(0.11, 0.20, 0.29, 0.98)
+
+	var pressed = normal.duplicate()
+	pressed.bg_color = Color(0.13, 0.25, 0.35, 0.98)
+
+	var disabled = normal.duplicate()
+	disabled.bg_color = Color(0.07, 0.09, 0.13, 0.86)
+	disabled.border_color = Color(0.24, 0.34, 0.44, 0.74)
+
+	button.add_theme_stylebox_override("normal", normal)
+	button.add_theme_stylebox_override("hover", hover)
+	button.add_theme_stylebox_override("pressed", pressed)
+	button.add_theme_stylebox_override("focus", hover)
+	button.add_theme_stylebox_override("disabled", disabled)
+	button.add_theme_color_override("font_color", Color(0.94, 0.99, 1.0))
+	button.add_theme_color_override("font_hover_color", Color(1.0, 1.0, 1.0))
+	button.add_theme_color_override("font_pressed_color", Color(1.0, 1.0, 1.0))
+	button.add_theme_color_override("font_disabled_color", Color(0.62, 0.72, 0.82))
+	button.add_theme_font_size_override("font_size", 14 if compact else 18)
 
 
 func _find_realm_index(realm_id: String) -> int:
