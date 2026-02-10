@@ -1,0 +1,5 @@
+.godot/
+*.import
+exports/
+.agent/
+.DS_Store
