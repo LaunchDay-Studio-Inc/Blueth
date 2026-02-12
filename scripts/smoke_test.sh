@@ -33,4 +33,7 @@ run_and_check "parse + boot" "$GODOT_BIN" --headless --path "$ROOT_DIR" --quit
 echo "[smoke] gameplay timed run"
 run_and_check "gameplay timed run" "$GODOT_BIN" --headless --path "$ROOT_DIR" --scene res://scenes/DebugGame.tscn --quit-after 480
 
+echo "[smoke] endless timed run"
+run_and_check "endless timed run" "$GODOT_BIN" --headless --path "$ROOT_DIR" --scene res://scenes/DebugEndless.tscn --quit-after 480
+
 echo "[smoke] passed"

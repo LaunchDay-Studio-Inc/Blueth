@@ -18,9 +18,11 @@
   - `Pulse Beam` (instant piercing line damage)
   - `Arc Boomerang` (returns and can re-hit)
 - Progression: 15 realm levels over a 17-minute run, with 30-95 second level pacing.
-- Draft system: 4+ upgrade choices, realm-specific upgrades, weapon-specific upgrades, and core overload drafts.
+- Draft system: 15 upgrade picks per run (start + each realm level), with realm-specific/weapon-specific upgrades. Core overloads bank extra upgrade options instead of interrupting gameplay.
 - Meta progression: persistent shard-based skill tree that permanently improves future runs.
 - Unique mechanic: `Flow Surge` charges via movement and emits AoE damage + slow.
+- Enemy variety: new enemy archetypes introduced every 3 realm levels (sprinters, bulwarks, packs, shooters, splitters).
+- Hero-exclusive upgrade: `Prism Sweep` (Warden-only rotating laser pattern).
 - Performance-first architecture:
   - pooled enemies/projectiles/xp orbs
   - spawn/active caps
@@ -69,7 +71,7 @@ Note: on first run, `build_release.sh` auto-installs missing Godot export templa
 ### 2) Package artifacts
 
 ```bash
-./scripts/package_release.sh v0.2.0
+./scripts/package_release.sh v0.2.2
 ```
 
 Artifacts are written to `dist/`.
@@ -80,7 +82,7 @@ Artifacts are written to `dist/`.
 export ITCH_TARGET="yourname/blueth"
 # required for non-interactive use
 export BUTLER_API_KEY="your_api_key"
-./scripts/itch_push.sh dist/Blueth-v0.2.0-web.zip
+./scripts/itch_push.sh dist/Blueth-v0.2.2-web.zip
 ```
 
 ## Project Structure

@@ -31,21 +31,21 @@ If templates are missing, the script installs them automatically using `scripts/
 ## 3) Package
 
 ```bash
-./scripts/package_release.sh v0.2.0
+./scripts/package_release.sh v0.2.7
 ```
 
 This writes distributables to `dist/`:
 
-- `Blueth-v0.2.0-web.zip`
-- `Blueth-v0.2.0-macos.zip` (if built)
-- `Blueth-v0.2.0-windows.zip` (if built)
+- `Blueth-v0.2.7-web.zip`
+- `Blueth-v0.2.7-macos.zip` (if built)
+- `Blueth-v0.2.7-windows.zip` (if built)
 
 ## 4) Upload to itch.io
 
 ### Option A: Web upload in browser
 
 1. Create an itch project with `HTML` type.
-2. Upload `dist/Blueth-v0.2.0-web.zip`.
+2. Upload `dist/Blueth-v0.2.7-web.zip`.
 3. Mark it playable in browser.
 4. Test controls and fullscreen behavior.
 
@@ -54,7 +54,7 @@ This writes distributables to `dist/`:
 ```bash
 export ITCH_TARGET="yourname/blueth"
 export BUTLER_API_KEY="your_api_key"
-./scripts/itch_push.sh dist/Blueth-v0.2.0-web.zip
+./scripts/itch_push.sh dist/Blueth-v0.2.7-web.zip
 ```
 
 `scripts/itch_push.sh` auto-detects `butler` from `PATH` and falls back to `./butler-darwin-amd64/butler` if present.

@@ -1,12 +1,16 @@
 extends Area2D
 class_name BluethProjectile
 
+signal hit_target(target, position: Vector2, amount: float, crit: bool, faction: String)
+
 var is_active = false
 
 var projectile_mode = "bullet"
+var faction = "player"
 var owner_ref = null
 var velocity = Vector2.ZERO
 var damage = 10.0
+var is_crit = false
 var hits_left = 1
 var age = 0.0
 var lifetime = 1.4
@@ -30,6 +34,7 @@ func _ready() -> void:
 	var shape = CircleShape2D.new()
 	shape.radius = radius
 	collision_shape.shape = shape
+	collision_shape.disabled = true
 	add_child(collision_shape)
 
 	area_entered.connect(_on_area_entered)
@@ -40,12 +45,14 @@ func _ready() -> void:
 func activate(config: Dictionary) -> void:
 	is_active = true
 	projectile_mode = String(config.get("mode", "bullet"))
+	faction = String(config.get("faction", "player"))
 	owner_ref = config.get("owner", null)
 
 	global_position = config.get("origin", Vector2.ZERO)
 	var direction = (config.get("direction", Vector2.RIGHT) as Vector2).normalized()
 	velocity = direction * float(config.get("speed", 560.0))
 	damage = float(config.get("damage", 10.0))
+	is_crit = bool(config.get("crit", false))
 	hits_left = int(config.get("hits", 1))
 	age = 0.0
 	lifetime = float(config.get("lifetime", 1.55))
@@ -55,11 +62,19 @@ func activate(config: Dictionary) -> void:
 	boomerang_outbound_time = float(config.get("boomerang_outbound_time", 0.42))
 	boomerang_return_grace = float(config.get("boomerang_return_grace", 0.10))
 
+	if faction == "enemy":
+		collision_layer = 1 << 3
+		collision_mask = 1 << 0
+	else:
+		collision_layer = 1 << 2
+		collision_mask = 1 << 1
+
 	rotation = velocity.angle()
 	hit_registry.clear()
 	hit_cooldowns.clear()
 
 	monitoring = true
+	collision_shape.disabled = false
 	set_physics_process(true)
 	show()
 	queue_redraw()
@@ -67,10 +82,14 @@ func activate(config: Dictionary) -> void:
 
 func deactivate() -> void:
 	is_active = false
+	faction = "player"
 	owner_ref = null
 	set_deferred("monitoring", false)
+	if collision_shape != null:
+		collision_shape.set_deferred("disabled", true)
 	set_physics_process(false)
 	hide()
+	is_crit = false
 	hit_registry.clear()
 	hit_cooldowns.clear()
 
@@ -131,11 +150,17 @@ func _on_area_entered(area: Area2D) -> void:
 		return
 	if area == null or not area.has_method("apply_projectile_hit"):
 		return
+	# Ignore pooled objects that are currently inactive (prevents "ghost" hits
+	# when something has been hidden but hasn't fully disabled monitoring yet).
+	var active_prop = area.get("is_active")
+	if typeof(active_prop) == TYPE_BOOL and not bool(active_prop):
+		return
 
 	var area_id = area.get_instance_id()
 	if projectile_mode == "boomerang":
 		if hit_cooldowns.has(area_id):
 			return
+		emit_signal("hit_target", area, global_position, damage, is_crit, faction)
 		area.apply_projectile_hit(damage)
 		hit_cooldowns[area_id] = 0.22
 		hits_left -= 1
@@ -147,6 +172,7 @@ func _on_area_entered(area: Area2D) -> void:
 		return
 
 	hit_registry[area_id] = true
+	emit_signal("hit_target", area, global_position, damage, is_crit, faction)
 	area.apply_projectile_hit(damage)
 	hits_left -= 1
 	if hits_left <= 0:
@@ -154,6 +180,12 @@ func _on_area_entered(area: Area2D) -> void:
 
 
 func _draw() -> void:
+	if faction == "enemy":
+		draw_circle(Vector2.ZERO, radius * 2.1, Color(1.0, 0.52, 0.45, 0.16))
+		draw_circle(Vector2.ZERO, radius * 1.15, Color(1.0, 0.30, 0.32))
+		draw_circle(Vector2(-radius * 0.18, -radius * 0.22), radius * 0.26, Color(1.0, 0.92, 0.84, 0.72))
+		return
+
 	if projectile_mode == "boomerang":
 		draw_circle(Vector2.ZERO, radius + 2.6, Color(0.36, 0.92, 0.84, 0.14))
 		draw_arc(Vector2.ZERO, radius + 2.0, -2.5, -0.5, 12, Color(0.38, 0.96, 0.88), 3.0)

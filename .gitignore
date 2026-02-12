@@ -4,4 +4,5 @@ exports/
 build/
 dist/
 .agent/
+.codex/
 .DS_Store

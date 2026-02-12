@@ -3,7 +3,10 @@ class_name BluethPlayer
 
 signal died
 signal hp_changed(current_hp: float, max_hp: float)
+signal damaged(amount: float)
 signal surge_triggered(origin: Vector2, radius: float, damage: float, slow_multiplier: float, slow_duration: float)
+
+const PlayerHitboxScript = preload("res://scripts/entities/player_hitbox.gd")
 
 @export var move_speed = 250.0
 @export var max_hp = 100.0
@@ -32,9 +35,14 @@ var current_hp = 100.0
 var invuln_timer = 0.0
 var distance_since_surge = 0.0
 var arena_rect = Rect2(Vector2.ZERO, Vector2(2200, 1300))
+var hitbox: Area2D
 
 func _ready() -> void:
 	current_hp = max_hp
+	if hitbox == null:
+		hitbox = PlayerHitboxScript.new()
+		add_child(hitbox)
+		hitbox.setup(self, 18.0)
 	set_physics_process(true)
 	queue_redraw()
 
@@ -127,6 +135,7 @@ func take_damage(amount: float) -> void:
 	var final_amount: float = amount * damage_taken_multiplier
 	current_hp = max(0.0, current_hp - final_amount)
 	invuln_timer = 0.24
+	emit_signal("damaged", final_amount)
 	emit_signal("hp_changed", current_hp, max_hp)
 	queue_redraw()
 

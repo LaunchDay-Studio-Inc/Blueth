@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <radialGradient id="bossGlow" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g stroke="#0b1a25" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+    <polygon points="22,52 10,20 38,34" fill="#ffffff"/>
+    <polygon points="106,52 118,20 90,34" fill="#ffffff"/>
+    <path d="M64 18 C34 20 22 44 22 74 C22 104 42 116 64 116 C86 116 106 104 106 74 C106 44 94 20 64 18 Z" fill="#ffffff"/>
+    <path d="M64 22 C44 28 36 44 36 68 C36 92 48 104 64 104 C80 104 92 92 92 68 C92 44 84 28 64 22 Z" fill="url(#bossGlow)" stroke="none"/>
+    <circle cx="48" cy="70" r="10" fill="#0b1a25"/>
+    <circle cx="80" cy="70" r="10" fill="#0b1a25"/>
+    <path d="M42 92 C52 104 76 104 86 92" fill="none"/>
+    <path d="M40 88 L88 88" fill="none" opacity="0.35"/>
+  </g>
+</svg>
+

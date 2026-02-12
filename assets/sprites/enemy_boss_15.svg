@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <radialGradient id="crownShine" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g stroke="#0b1a25" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M64 18 C34 24 22 48 22 74 C22 104 42 116 64 116 C86 116 106 104 106 74 C106 48 94 24 64 18 Z" fill="#ffffff"/>
+    <polygon points="40,30 50,12 64,26 78,12 88,30" fill="#ffffff"/>
+    <path d="M26 70 C38 62 46 56 54 56" fill="none" opacity="0.28"/>
+    <path d="M102 70 C90 62 82 56 74 56" fill="none" opacity="0.28"/>
+    <circle cx="64" cy="70" r="34" fill="url(#crownShine)" stroke="none"/>
+    <circle cx="48" cy="74" r="10" fill="#0b1a25"/>
+    <circle cx="80" cy="74" r="10" fill="#0b1a25"/>
+    <path d="M44 96 C54 106 74 106 84 96" fill="none"/>
+  </g>
+</svg>
+

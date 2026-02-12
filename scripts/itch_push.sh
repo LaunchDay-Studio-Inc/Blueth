@@ -2,10 +2,19 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-ZIP_PATH="${1:-$ROOT_DIR/dist/Blueth-v0.2.0-web.zip}"
+ZIP_PATH="${1:-}"
 ITCH_TARGET="${ITCH_TARGET:-}"
 CHANNEL="${CHANNEL:-html5}"
 BUTLER_BIN="${BUTLER_BIN:-}"
+
+if [[ -z "$ZIP_PATH" ]]; then
+  ZIP_PATH="$(ls -t "$ROOT_DIR/dist"/Blueth-*-web.zip 2>/dev/null | head -n1 || true)"
+fi
+
+if [[ -z "$ZIP_PATH" ]]; then
+  echo "Provide a zip artifact path (e.g. dist/Blueth-v0.2.3-web.zip)"
+  exit 1
+fi
 
 if [[ -z "$ITCH_TARGET" ]]; then
   echo "Set ITCH_TARGET to 'username/project'"

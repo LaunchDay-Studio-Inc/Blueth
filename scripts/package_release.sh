@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 DIST_DIR="$ROOT_DIR/dist"
-VERSION="${1:-v0.2.0}"
+VERSION="${1:-v0.2.7}"
 
 mkdir -p "$DIST_DIR"
 rm -f "$DIST_DIR"/Blueth-*.zip

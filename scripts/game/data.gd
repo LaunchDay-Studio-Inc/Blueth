@@ -127,6 +127,21 @@ const REALMS = [
 			"bg_color": Color(0.10, 0.10, 0.17),
 			"grid_color": Color(0.82, 0.70, 0.99, 0.07)
 		}
+	},
+	{
+		"id": "endless",
+		"name": "Endless",
+		"desc": "Low-pressure endless realm for long sessions. Draft every minute, grind shards, and chase personal records.",
+		"mods": {
+			"enemy_hp": 0.80,
+			"enemy_speed": 0.92,
+			"enemy_damage": 0.76,
+			"spawn_interval": 1.25,
+			"elite_rate": 0.35,
+			"mastery_reward": 0.65,
+			"bg_color": Color(0.05, 0.10, 0.20),
+			"grid_color": Color(0.46, 0.92, 0.88, 0.06)
+		}
 	}
 ]
 
